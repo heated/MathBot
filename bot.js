@@ -1,11 +1,9 @@
-// Create the configuration
 var config = {
   channels: ["#appacademy"],
   server: "irc.foonetic.net",
-  botName: "bot_master"
+  botName: "ed_bot"
 };
 
-// Get the lib
 var irc = require("irc");
 
 // Create the bot name
@@ -13,44 +11,52 @@ var bot = new irc.Client(config.server, config.botName, {
   channels: config.channels
 });
 
-// // Listen for joins
-// bot.addListener("join", function(channel, who) {
-//   // Welcome them in!
-//   bot.say(channel, who + "...dude...welcome back!");
-// });
-
-// Listen for any message, PM said user when he posts
-// bot.addListener("message", function(from, to, text, message) {
-//   // bot.say(from, "¿Que?");
-//   var msg = message.args[1];
-//   var answer = null;
-
-//   if(msg.match("^What is ")) {
-//     try {
-//       answer = eval(msg.slice(8, -1));
-//     }
-//     catch(e) {
-//       console.log("hi");
-//       console.log(msg.slice(8, -1));
-//     }
-//     if(answer != null) {
-//       bot.say(config.channels[0], answer);
-//     } else {
-//       bot.say(config.channels[0], "Best rephrase, son.");
-//     }
-//   } 
-// });
+var scores = {};
 
 bot.addListener("message", function(from, to, text, message) {
 
-  if(from.match("^NedBot")) {
-    bot.say(config.channels[0], "Good question, um, maybe Ned can answer that.");
-  }
+  if(text.indexOf("lol ") == 0) {
+    var person = text.slice(4);
+    if(person == from) {
+      say(to, "Laughing at yourself, " + from + "?");
+    } else {
+      inc(person);
+    }
+
+  } else if(text.indexOf("ed_bot: score?") == 0) {
+    var person = text.slice(15);
+    if(person.size == 0) person = from;
+    check(person);
+    say(to, scores[person]);
+
+  } else if(text.indexOf("ed_bot: help") == 0)
+    say(to, '"lol <name>" to upvote; "ed_bot: score? [name]" for info');
+
+  else if(text.match("what is love"))
+    say(to, "baby don't hurt me");
+
+  else if(text.match("^ed_bot$"))
+    say(to, "what?");
+
+  else if(text.match("beautiful strong"))
+    dec(from);
+
 });
 
-// "Good question, " + from + ", the answer is: " +
+function check(name) {
+  scores[name] = scores[name] || 0;
+}
 
-// Listen for any message, say to him/her in the room
-// bot.addListener("message", function(from, to, text, message) {
-//   bot.say(config.channels[0], "¿Public que?");
-// });
+function inc(name) {
+  check(name);
+  scores[name] += 1;
+}
+
+function dec(name) {
+  check(name);
+  scores[name] -= 1;
+}
+
+function say(to, str) {
+  bot.say(to, str);
+}
