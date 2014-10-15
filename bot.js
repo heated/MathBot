@@ -26,10 +26,10 @@ function Bot() {
 		channels: config.channels
 	});
 
-	helpText =
-	'I execute arbitrary Javascript expressions. For example, "Math.pow(2, 3)"\
-	You can also tell me to respond to specific regexes. For example, "MathBot.respondTo(/^:D$/i, \'lol\')"\
-	You can view my source at https://github.com/heated/MathBot/blob/master/bot.js';
+	var helpText =
+'I execute arbitrary Javascript expressions. For example, "Math.pow(2, 3)" \n\
+You can also tell me to respond to specific regexes. For example, "MathBot.respondTo(/^:D$/i, \'lol\')" \n\
+You can view my source at https://github.com/heated/MathBot/blob/master/bot.js';
 
 	this.bot.addListener('message', this.respond.bind(this));
 	this.respondTo(/^mathbot( help)?$/i, helpText);
