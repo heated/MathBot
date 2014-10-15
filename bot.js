@@ -49,7 +49,8 @@ Bot.prototype = {
 		}
 
 		try {
-			this.bot.say(to, JSON.stringify(eval(text)));
+			var result = eval(text);
+			this.bot.say(to, (typeof(result) === "boolean" ? '!!' : '') + JSON.stringify(result));
 		} catch(e) {}
 	},
 
@@ -64,7 +65,7 @@ Bot.prototype = {
 			this.responses.push({ regex: regex, response: response });	
 		}
 
-		return "sentry goin' up";
+		return "created!";
 	}
 }
 
