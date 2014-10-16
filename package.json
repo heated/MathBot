@@ -1,13 +1,12 @@
 {
   "name": "node-js-getting-started",
   "version": "0.1.2",
-  "description": "A sample Node.js app using Express 4",
+  "description": "A barebones Node.js math irc bot",
   "main": "bot.js",
   "scripts": {
     "start": "node bot.js"
   },
   "dependencies": {
-    "express": "~4.9.x"
   },
   "engines": {
     "node": "0.10.x"
@@ -18,8 +17,7 @@
   },
   "keywords": [
     "node",
-    "heroku",
-    "express"
+    "bot"
   ],
   "license": "MIT"
 }
