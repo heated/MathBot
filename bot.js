@@ -24,6 +24,7 @@ You can view my source at https://github.com/heated/MathBot/blob/master/bot.js';
 	this.respondTo(/what is love/i, "baby, don't hurt me");
 	this.respondTo(/^<3$/i, '<3');
 	this.respondTo(/:D$/i, 'lol');
+	this.respondTo(/^mathbot say (.+)$/i, function (text) { return text.match(/^mathbot say (.+)$/i)[1]; });
 }
 
 Bot.prototype = {
