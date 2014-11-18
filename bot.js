@@ -2,8 +2,8 @@ var _ = require('lodash'),
 	irc = require('irc'),
 
 	config = {
-		channels: ['#bestcohort'],
-		server: 'irc.foonetic.net',
+		channels: [process.env.IRC_CHANNEL],
+		server: process.env.IRC_SERVER,
 		botName: 'MathBot'
 	};
 
