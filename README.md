@@ -24,6 +24,6 @@ heated: you guys want to grab lunch?
 
 MathBot comes packaged with Lo-Dash, which is like Underscore.js but faster.
 ```
-heated: _.any([false, '', 0, undefined, null], _.identity);
+heated: _.any([false, '', 0, undefined, null]);
 MathBot: !!false
 ```
