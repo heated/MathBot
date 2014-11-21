@@ -1,21 +1,23 @@
 {
-  "name": "node-js-getting-started",
-  "version": "0.1.2",
-  "description": "A barebones Node.js math irc bot",
+  "name": "nodejs-math-irc-bot",
+  "version": "1.5.0",
+  "description": "A Node.js Javascript REPL irc bot",
   "main": "bot.js",
   "scripts": {
     "start": "node bot.js"
   },
   "dependencies": {
-    "irc": "^0.3.7",
-    "lodash": "^2.4.1"
+    "irc": "*",
+    "lodash": "*",
+    "redis": "*",
+    "hiredis": "*"
   },
   "engines": {
     "node": "0.10.x"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/heroku/node-js-getting-started"
+    "url": "https://github.com/heated/MathBot"
   },
   "keywords": [
     "node",

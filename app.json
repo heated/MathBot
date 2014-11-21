@@ -1,7 +1,7 @@
 {
   "name": "MathBot",
-  "description": "A barebones Node.js math irc bot",
-  "repository": "https://github.com/heroku/node-js-getting-started",
+  "description": "A Node.js Javascript REPL irc bot",
+  "repository": "https://github.com/heated/MathBot",
   "logo": "http://node-js-sample.herokuapp.com/node.svg",
   "keywords": ["node", "bot"]
 }

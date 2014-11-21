@@ -12,10 +12,7 @@ function Bot() {
 		channels: config.channels
 	});
 
-	var helpText =
-'I execute arbitrary Javascript expressions. For example, "Math.pow(2, 3)" \n\
-You can also tell me to respond to specific regexes. For example, "MathBot.respondTo(/^:D$/i, \'lol\')" \n\
-You can view my source at https://github.com/heated/MathBot/blob/master/bot.js';
+	var helpText = 'I am a Javascript REPL bot! You can view my source at https://github.com/heated/MathBot';
 
 	this.bot.addListener('message', this.respond.bind(this));
 	this.respondTo(/^mathbot( help)?$/i, helpText);
@@ -26,8 +23,6 @@ You can view my source at https://github.com/heated/MathBot/blob/master/bot.js';
 	this.respondTo(/^<3$/i, '<3');
 	this.respondTo(/:D$/i, 'lol');
 	this.respondTo(/^mathbot say (.+)$/i, function (text) { return text.match(/^mathbot say (.+)$/i)[1]; });
-	this.respondTo(/^mathbot (shut (up|it)|cool (it|your jets)|calm (down|(your|thy)self)|(be )?quiet|(settle|tone it) down|st(op|ahp)|shh|chill)/i, this.toneItDown.bind(this));
-	this.respondTo(/mathbot (wake up|bring (it|sexy) back|two hops|sup|yo|hey|what up)/i, this.bringItBack.bind(this));
 }
 
 Bot.prototype = {
@@ -38,7 +33,9 @@ Bot.prototype = {
 	},
 
 	respond: function (from, to, text, message) {
-		if (from.match(/bot/i)) return;
+		if (from.match(/bot/i)) {
+			return;
+		}
 
 		var match = _.find(this.responses, function (pair) {
 			return text.match(pair.regex);
@@ -50,11 +47,17 @@ Bot.prototype = {
 		}
 
 		try {
-			var result = eval(text);
-			if (this.canSpeak()) {
-				this.say( (typeof(result) === "boolean" ? '!!' : '') + JSON.stringify(result) );
-			}
+			readEvalPrint(text);
 		} catch(e) {}
+	},
+
+	readEvalPrint: function (text) {
+		var result = eval(text);
+		var output = JSON.stringify(result);
+		// no replying to quotes, numbers, simple stuff, etc.
+		if (text !== output && !text.match(/^'[^']*'$/)) {
+			this.say( (typeof(result) === 'boolean' ? '!!' : '') + output );
+		}
 	},
 
 	respondTo: function (regex, response) {
@@ -68,26 +71,11 @@ Bot.prototype = {
 			this.responses.push({ regex: regex, response: response });	
 		}
 
-		return "created!";
+		return 'created!';
 	},
 
 	die: function () {
 		eval('exit');
-	},
-
-	toneItDown: function () {
-		this.chilling = setTimeout(this.bringItBack.bind(this), 300000);
-		this.say(':(');
-	},
-
-	bringItBack: function () {
-		clearTimeout(this.chilling);
-		this.chilling = false;
-		this.say(':)');
-	},
-
-	canSpeak: function () {
-		return !this.chilling || !text.match(/^('|")[^"]*\1$/);
 	}
 }
 
