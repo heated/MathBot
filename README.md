@@ -1,36 +1,29 @@
-# node-js-getting-started
+# MathBot
 
-A barebones Node.js app using [Express 4](http://expressjs.com/).
-
-This application support the [Getting Started with Node on Heroku](https://devcenter.heroku.com/articles/getting-started-with-nodejs) article - check it out.
-
-## Running Locally
-
-Make sure you have [Node.js](http://nodejs.org/) and the [Heroku Toolbelt](https://toolbelt.heroku.com/) installed.
-
-```sh
-$ git clone git@github.com:heroku/node-js-getting-started.git # or clone your own fork
-$ cd node-js-getting-started
-$ npm install
-$ npm start
+A Node.js irc bot that acts as a Javascript REPL.
+```
+heated: Math.pow(2, 3);
+MathBot: 8
 ```
 
-Your app should now be running on [localhost:5000](http://localhost:5000/).
-
-## Deploying to Heroku
-
+You can tell MathBot to respond to specific regexes. 
 ```
-$ heroku create
-$ git push heroku master
-$ heroku open
+heated: MathBot.respondTo(/:D$/i, 'lol');
+MathBot: created!
+heated: lol :D
+MathBot: lol
 ```
 
-## Documentation
+MathBot helpfully ignores simple strings and statements.
+```
+heated: "Well, I guess not. Maybe the hokey pokey is what it's all about?"
+heated: huh
+heated: true
+heated: you guys want to grab lunch?
+```
 
-For more information about using Node.js on Heroku, see these Dev Center articles:
-
-- [Getting Started with Node.js on Heroku](https://devcenter.heroku.com/articles/getting-started-with-nodejs)
-- [Heroku Node.js Support](https://devcenter.heroku.com/articles/nodejs-support)
-- [Node.js on Heroku](https://devcenter.heroku.com/categories/nodejs)
-- [Best Practices for Node.js Development](https://devcenter.heroku.com/articles/node-best-practices)
-- [Using WebSockets on Heroku with Node.js](https://devcenter.heroku.com/articles/node-websockets)
+MathBot comes packaged with Lo-Dash, which is like Underscore.js but faster.
+```
+heated: _.any([false, '', 0, undefined, null]);
+MathBot: !!false
+```
