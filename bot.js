@@ -47,7 +47,7 @@ Bot.prototype = {
 		}
 
 		try {
-			readEvalPrint(text);
+			this.readEvalPrint(text);
 		} catch(e) {}
 	},
 
